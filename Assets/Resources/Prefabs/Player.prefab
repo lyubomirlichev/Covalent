@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043f4130ee51be4428838fd34edfae0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SphereMaterial: {fileID: 2100000, guid: ca0b592a5500fd240ae9872cdcde269f, type: 2}
-  sphereSize: 1
+  protonMaterial: {fileID: 2100000, guid: ca0b592a5500fd240ae9872cdcde269f, type: 2}
+  neutronMaterial: {fileID: 2100000, guid: cf9a014446fdb144086c39c300d6e122, type: 2}
 --- !u!135 &7064043017555815382
 SphereCollider:
   m_ObjectHideFlags: 0
