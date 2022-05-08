@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
 
     private InputAction moveAction;
-    private float moveSpeed = 2f;
+    private float moveSpeed = 6f;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
