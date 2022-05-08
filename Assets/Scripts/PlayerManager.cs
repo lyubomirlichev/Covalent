@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
         movementControl.Init();
         
         var generator = GetComponent<SphereGenerator>();
-        var proton = generator.CreateSphereGameObject();
+        var proton = generator.CreateProton(0.3f);
         proton.transform.SetParent(transform);
         proton.name = "proton";
         proton.transform.localPosition = Vector3.zero;
