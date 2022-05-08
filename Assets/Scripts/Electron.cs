@@ -4,17 +4,17 @@ public class Electron : MonoBehaviour
 {
     private Transform nucleusTarget;
     private float orbitSpeed;
-    private float orbitDistance;
-    
-    public void Init(Transform nucleus, float speed, float distance)
+    private float orbitDirection;
+
+    public void Init(Transform nucleus, float speed, float direction)
     {
         nucleusTarget = nucleus;
         orbitSpeed = speed;
-        orbitDistance = distance;
+        orbitDirection = direction;
     }
 
     public void ManualUpdate()
     {
-        transform.RotateAround(nucleusTarget.transform.position, Vector3.up, orbitSpeed * Time.deltaTime);
+        transform.RotateAround(nucleusTarget.transform.position, Vector3.up,  orbitDirection * orbitSpeed * Time.deltaTime);
     }
 }

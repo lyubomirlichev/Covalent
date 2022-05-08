@@ -71,6 +71,16 @@ public class Elements : MonoBehaviour
         });
 
         //...and so many more
+        elementsList.Add(new Element
+        {
+            elementName = "Test",
+            atomicSymbol = "T",
+            numProtons = 1,
+            electrons = new[] {3, 2, 1},
+            numNeutrons = 5,
+            usage = "test",
+            properties = new[] {"test"}
+        });
     }
 
     public Element GetElementByName(string elName)

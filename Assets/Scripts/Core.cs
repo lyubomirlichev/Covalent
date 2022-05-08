@@ -24,7 +24,7 @@ public class Core : MonoBehaviour
         cam.Follow = player.transform;
         cam.LookAt = player.transform;
 
-        var playerElement = elementsLibrary.GetElementByName("Hydrogen");
+        var playerElement = elementsLibrary.GetElementByName("Test");
         player.Init(playerElement);
         
     }

@@ -35,10 +35,18 @@ public class PlayerManager : MonoBehaviour
                 var electronSphere = generator.CreateElectron(0.05f);
                 electronSphere.name = "Electron";
                 electronSphere.transform.SetParent(transform);
-                electronSphere.transform.Translate(new Vector3((j+1)*0.3f,0,0));
+                float radius = (i + 1) * 0.2f;
+
+                float angle = (j + 1) * 2 * Mathf.PI / startingElement.electrons[i];
+                angle += (180f * i); // offset
+                float x = Mathf.Sin(angle) * radius;
+                float z = Mathf.Cos(angle) * radius;
+                electronSphere.transform.Translate(new Vector3(x, 0, z));
+                
+                float direction = i % 2 == 0 ? 1 : -1;
                 
                 var electron = electronSphere.AddComponent<Electron>();
-                electron.Init(transform, 100f, 1f); // TODO: replace transform with an empty anchor
+                electron.Init(transform, 200f / (i + 1), direction); // TODO: replace transform with an empty anchor
                 electrons.Add(electron);
             }
         }
