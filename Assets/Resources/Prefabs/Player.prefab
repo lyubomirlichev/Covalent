@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   protonMaterial: {fileID: 2100000, guid: ca0b592a5500fd240ae9872cdcde269f, type: 2}
   neutronMaterial: {fileID: 2100000, guid: cf9a014446fdb144086c39c300d6e122, type: 2}
+  electronMaterial: {fileID: 2100000, guid: 2dc0c3a13dcbeb248891115644b174a8, type: 2}
 --- !u!135 &7064043017555815382
 SphereCollider:
   m_ObjectHideFlags: 0

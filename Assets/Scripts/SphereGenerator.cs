@@ -4,12 +4,16 @@ public class SphereGenerator : MonoBehaviour
 {
     [SerializeField] private Material protonMaterial;
     [SerializeField] private Material neutronMaterial;
-
+    [SerializeField] private Material electronMaterial;
     public GameObject CreateNeutron(float scale)
     {
         return CreateSphere(neutronMaterial, scale);
     }
-
+    
+    public GameObject CreateElectron(float scale)
+    {
+        return CreateSphere(electronMaterial, scale);
+    }
     public GameObject CreateProton(float scale)
     {
         return CreateSphere(protonMaterial, scale);
