@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
+using EasyButtons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,17 +10,24 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
     private PlayerInput playerInput;
-
+    private SphereGenerator generator;
     private InputAction moveAction;
     private float moveSpeed = 6f;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-
+        generator = GetComponent<SphereGenerator>();
+        //GameObject core = generator.CreateSphereGameObject();
+        
         moveAction = playerInput.currentActionMap.FindAction("Move");
     }
 
+    [Button]
+    private void GenerateSphere()
+    {
+        generator.CreateSphereGameObject();
+    }
     private void Update()
     {
         var rawInput = moveAction.ReadValue<Vector2>();
