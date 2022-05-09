@@ -16,14 +16,14 @@ public class PlayerMovement : MonoBehaviour
         
         moveAction = playerInput.currentActionMap.FindAction("Move");
     }
-    private void Update()
+    public void ManualUpdate(float timeStep)
     {
         if (controller == null) return;
 
         var rawInput = moveAction.ReadValue<Vector2>();
         var direction = IsometricVector(new Vector3(rawInput.x, 0, rawInput.y));
 
-        controller.Move(direction * (moveSpeed * Time.deltaTime));
+        controller.Move(direction * (moveSpeed * timeStep));
     }
 
     private Vector3 IsometricVector(Vector3 vector)

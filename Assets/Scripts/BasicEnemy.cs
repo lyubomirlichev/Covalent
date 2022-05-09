@@ -1,41 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class BasicEnemy : MonoBehaviour, IEnemy
 {
-    private PlayerMovement movementControl;
     private List<Electron> electrons = new();
 
-    public void Init(SphereGenerator generator, Element startingElement)
+    public void Init(SphereGenerator sphereGenerator, Element source)
     {
-        movementControl = gameObject.AddComponent<PlayerMovement>();
-        movementControl.Init();
+        gameObject.AddComponent<SphereCollider>();
 
-        //TODO: make them spaced out a bit
-        for (int i = 0; i < startingElement.numProtons; i++)
+        //TODO: reuse for player and enemy
+        for (int i = 0; i < source.numProtons; i++)
         {
-            var protonSphere = generator.CreateProton(0.1f);
+            var protonSphere = sphereGenerator.CreateProton(0.1f);
             protonSphere.name = "Proton";
-            protonSphere.transform.SetParent(transform);
+            protonSphere.transform.SetParent(transform, false);
         }
 
-        for (int i = 0; i < startingElement.numNeutrons; i++)
+        for (int i = 0; i < source.numNeutrons; i++)
         {
-            var neutronSphere = generator.CreateNeutron(0.1f);
+            var neutronSphere = sphereGenerator.CreateNeutron(0.15f);
             neutronSphere.name = "Neutron";
-            neutronSphere.transform.SetParent(transform);
+            neutronSphere.transform.SetParent(transform, false);
         }
 
-        for (int i = 0; i < startingElement.electrons.Length; i++)
+        for (int i = 0; i < source.electrons.Length; i++)
         {
-            for (int j = 0; j < startingElement.electrons[i]; j++)
+            for (int j = 0; j < source.electrons[i]; j++)
             {
-                var electronSphere = generator.CreateElectron(0.05f);
+                var electronSphere = sphereGenerator.CreateElectron(0.05f);
                 electronSphere.name = "Electron";
                 electronSphere.transform.SetParent(transform);
                 float radius = (i + 1) * 0.2f;
 
-                float angle = (j + 1) * 2 * Mathf.PI / startingElement.electrons[i];
+                float angle = (j + 1) * 2 * Mathf.PI / source.electrons[i];
                 angle += (180f * i); // offset
                 float x = Mathf.Sin(angle) * radius;
                 float z = Mathf.Cos(angle) * radius;
@@ -48,15 +46,19 @@ public class PlayerManager : MonoBehaviour
                 electrons.Add(electron);
             }
         }
+
+        transform.position = new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20));
     }
 
     public void ManualUpdate(float timeStep)
     {
-        movementControl.ManualUpdate(timeStep);
-
         foreach (var electron in electrons)
         {
             electron.ManualUpdate(timeStep);
         }
+    }
+
+    public void Deinit()
+    {
     }
 }

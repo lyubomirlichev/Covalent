@@ -13,8 +13,8 @@ public class Electron : MonoBehaviour
         orbitDirection = direction;
     }
 
-    public void ManualUpdate()
+    public void ManualUpdate(float timeStep)
     {
-        transform.RotateAround(nucleusTarget.transform.position, Vector3.up,  orbitDirection * orbitSpeed * Time.deltaTime);
+        transform.RotateAround(nucleusTarget.transform.position, Vector3.up,  orbitDirection * orbitSpeed * timeStep);
     }
 }

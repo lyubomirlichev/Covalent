@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using Cinemachine;
+using EasyButtons;
 using UnityEngine;
-
-
 
 public class Core : MonoBehaviour
 {
     private PlayerManager player;
     private Elements elementsLibrary;
-    
+    private EnemiesManager enemiesManager;
     private void Start()
     {
         elementsLibrary = gameObject.AddComponent<Elements>();
@@ -19,18 +17,32 @@ public class Core : MonoBehaviour
         if (cameraPrefab == null || playerPrefab == null) return;
         
         player = playerPrefab.GetComponent<PlayerManager>();
+        enemiesManager = GetComponent<EnemiesManager>();
         var cam = cameraPrefab.GetComponent<CinemachineVirtualCamera>();
+        var generator = GetComponent<SphereGenerator>();
         
         cam.Follow = player.transform;
         cam.LookAt = player.transform;
 
         var playerElement = elementsLibrary.GetElementByName("Test");
-        player.Init(playerElement);
+        player.Init(generator, playerElement);
+        
+        enemiesManager.Init(generator);
+        
         
     }
 
+    [Button]
+    public void Test_SpawnEnemy()
+    {
+        var element = elementsLibrary.GetRandomElement();
+        enemiesManager.SpawnEnemy(element);
+    }
+    
     private void Update()
     {
-        player.ManualUpdate();
+        var timeStep = Time.deltaTime;
+        player.ManualUpdate(timeStep);
+        enemiesManager.ManualUpdate(timeStep);
     }
 }

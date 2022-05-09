@@ -87,4 +87,10 @@ public class Elements : MonoBehaviour
     {
         return elementsList.Find(x => x.elementName == elName);
     }
+
+    public Element GetRandomElement()
+    {
+        int randomIndex = Random.Range(0, elementsList.Count - 1);
+        return elementsList[randomIndex];
+    }
 }

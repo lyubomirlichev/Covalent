@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 3109867029606251724}
   - component: {fileID: 7064043017555815386}
   - component: {fileID: 7064043017555815387}
-  - component: {fileID: 7064043017555815380}
-  - component: {fileID: 7064043017555815381}
   - component: {fileID: 7064043017555815382}
   m_Layer: 0
   m_Name: Player
@@ -94,7 +92,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7064043017555815380}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -161,33 +159,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &7064043017555815380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7064043017555815384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53634a0ccf0b86447842f85989cea7bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7064043017555815381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7064043017555815384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043f4130ee51be4428838fd34edfae0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  protonMaterial: {fileID: 2100000, guid: ca0b592a5500fd240ae9872cdcde269f, type: 2}
-  neutronMaterial: {fileID: 2100000, guid: cf9a014446fdb144086c39c300d6e122, type: 2}
-  electronMaterial: {fileID: 2100000, guid: 2dc0c3a13dcbeb248891115644b174a8, type: 2}
 --- !u!135 &7064043017555815382
 SphereCollider:
   m_ObjectHideFlags: 0
