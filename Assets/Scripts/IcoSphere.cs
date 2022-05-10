@@ -157,6 +157,6 @@ public class IcoSphere : MonoBehaviour
         mesh.RecalculateBounds();
         mesh.RecalculateTangents();
         mesh.RecalculateNormals();
-        //mesh.Optimize();
+        mesh.Optimize();
     }
 }
