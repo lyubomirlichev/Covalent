@@ -7,6 +7,7 @@ public class Core : MonoBehaviour
     private PlayerManager player;
     private Elements elementsLibrary;
     private EnemiesManager enemiesManager;
+    
     private void Start()
     {
         elementsLibrary = gameObject.AddComponent<Elements>();
@@ -20,6 +21,7 @@ public class Core : MonoBehaviour
         enemiesManager = GetComponent<EnemiesManager>();
         var cam = cameraPrefab.GetComponent<CinemachineVirtualCamera>();
         var generator = GetComponent<SphereGenerator>();
+        generator.Init();
         
         cam.Follow = player.transform;
         cam.LookAt = player.transform;
@@ -28,8 +30,6 @@ public class Core : MonoBehaviour
         player.Init(generator, playerElement);
         
         enemiesManager.Init(generator);
-        
-        
     }
 
     [Button]
