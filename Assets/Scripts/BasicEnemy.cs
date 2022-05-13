@@ -9,6 +9,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
     public void Init(SphereGenerator sphereGenerator, Element source)
     {
+        transform.localPosition = new Vector3(0, 0.5f, 0);
         gameObject.AddComponent<SphereCollider>();
 
         //TODO: reuse some for player and enemy
@@ -47,8 +48,6 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
             electronGroups.Add(electronGroup);
         }
-
-        transform.position = new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20));
     }
 
     public void ManualUpdate(float timeStep)

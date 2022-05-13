@@ -29,14 +29,7 @@ public class Core : MonoBehaviour
         var playerElement = elementsLibrary.GetElementByName("Test");
         player.Init(generator, playerElement);
         
-        enemiesManager.Init(generator);
-    }
-
-    [Button]
-    public void Test_SpawnEnemy()
-    {
-        var element = elementsLibrary.GetRandomElement();
-        enemiesManager.SpawnEnemy(element);
+        enemiesManager.Init(generator,elementsLibrary);
     }
     
     private void Update()
