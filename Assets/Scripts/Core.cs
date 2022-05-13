@@ -29,7 +29,7 @@ public class Core : MonoBehaviour
         var playerElement = elementsLibrary.GetElementByName("Test");
         player.Init(generator, playerElement);
         
-        enemiesManager.Init(generator,elementsLibrary);
+        enemiesManager.Init(player.transform,generator,elementsLibrary);
     }
     
     private void Update()

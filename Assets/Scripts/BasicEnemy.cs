@@ -4,6 +4,7 @@ using UnityEngine;
 public class BasicEnemy : MonoBehaviour, IEnemy
 {
     private float electronSpeedFactor = 150;
+    private float moveSpeed = 5;
     
     private List<GameObject> electronGroups = new();
 
@@ -50,12 +51,17 @@ public class BasicEnemy : MonoBehaviour, IEnemy
         }
     }
 
-    public void ManualUpdate(float timeStep)
+    public void ManualUpdate(Transform player, float timeStep)
     {
         for (int i = 0; i < electronGroups.Count; i++)
         {
             electronGroups[i].transform.Rotate(Vector3.up, (i % 2 == 0 ? 1 : -1) * (electronSpeedFactor / (i + 1)) * timeStep);
         }
+
+        Vector3 direction = player.position - transform.position;
+        direction.Normalize();
+        direction.y = 0;
+        transform.Translate(direction * (moveSpeed * timeStep));
     }
 
     public void Deinit()

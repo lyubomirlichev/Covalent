@@ -76,7 +76,7 @@ public class Elements : MonoBehaviour
             elementName = "Test",
             atomicSymbol = "T",
             numProtons = 1,
-            electrons = new[] {6, 6, 6,6,6,6,6,6,20,20,20,20,20,20,20,20},
+            electrons = new[] {1,2,3,5,8,13,21},
             numNeutrons = 5,
             usage = "test",
             properties = new[] {"test"}

@@ -6,7 +6,7 @@ using UnityEngine;
 public interface IEnemy
 {
     public void Init(SphereGenerator generator, Element self);
-    public void ManualUpdate(float timeStep);
+    public void ManualUpdate(Transform player, float timeStep);
     public void Deinit();
 }
 
@@ -16,11 +16,14 @@ public class EnemiesManager : MonoBehaviour
     private SphereGenerator sphereGenerator;
     private Elements elementsLibrary;
 
-    public void Init(SphereGenerator generator, Elements elements)
+    private Transform playerTransform;
+    public void Init(Transform player, SphereGenerator generator, Elements elements)
     {
         sphereGenerator = generator;
         elementsLibrary = elements;
 
+        playerTransform = player;
+        
         StartCoroutine(SpawnEnemies());
     }
 
@@ -48,7 +51,7 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach (var enemy in currentEnemies)
         {
-            enemy.ManualUpdate(timeStep);
+            enemy.ManualUpdate(playerTransform, timeStep);
         }
     }
 }
