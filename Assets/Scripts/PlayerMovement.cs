@@ -1,3 +1,4 @@
+using System.ServiceModel.Syndication;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        transform.localPosition = new Vector3(0, 0.5f, 0);
         
         moveAction = playerInput.currentActionMap.FindAction("Move");
     }

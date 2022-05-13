@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    private float electronSpeedFactor = 150;
+    
     private PlayerMovement movementControl;
-    private List<Electron> electrons = new();
+    private List<GameObject> electronGroups = new();
 
     public void Init(SphereGenerator generator, Element startingElement)
     {
@@ -16,23 +18,26 @@ public class PlayerManager : MonoBehaviour
         {
             var protonSphere = generator.CreateProton(0.1f);
             protonSphere.name = "Proton";
-            protonSphere.transform.SetParent(transform);
+            protonSphere.transform.SetParent(transform, false);
         }
 
         for (int i = 0; i < startingElement.numNeutrons; i++)
         {
             var neutronSphere = generator.CreateNeutron(0.1f);
             neutronSphere.name = "Neutron";
-            neutronSphere.transform.SetParent(transform);
+            neutronSphere.transform.SetParent(transform, false);
         }
 
         for (int i = 0; i < startingElement.electrons.Length; i++)
         {
+            GameObject electronGroup = new GameObject("electron group" + i);
+            electronGroup.transform.SetParent(transform, false);
+
             for (int j = 0; j < startingElement.electrons[i]; j++)
             {
                 var electronSphere = generator.CreateElectron(0.05f);
                 electronSphere.name = "Electron";
-                electronSphere.transform.SetParent(transform);
+                electronSphere.transform.SetParent(electronGroup.transform, false);
                 float radius = (i + 1) * 0.2f;
 
                 float angle = (j + 1) * 2 * Mathf.PI / startingElement.electrons[i];
@@ -40,13 +45,9 @@ public class PlayerManager : MonoBehaviour
                 float x = Mathf.Sin(angle) * radius;
                 float z = Mathf.Cos(angle) * radius;
                 electronSphere.transform.Translate(new Vector3(x, 0, z));
-
-                float direction = i % 2 == 0 ? 1 : -1;
-
-                var electron = electronSphere.AddComponent<Electron>();
-                electron.Init(transform, 200f / (i + 1), direction); // TODO: replace transform with an empty anchor
-                electrons.Add(electron);
             }
+
+            electronGroups.Add(electronGroup);
         }
     }
 
@@ -54,9 +55,9 @@ public class PlayerManager : MonoBehaviour
     {
         movementControl.ManualUpdate(timeStep);
 
-        foreach (var electron in electrons)
+        for (int i = 0; i < electronGroups.Count; i++)
         {
-            electron.ManualUpdate(timeStep);
+            electronGroups[i].transform.Rotate(Vector3.up, (i % 2 == 0 ? 1 : -1) * (electronSpeedFactor / (i + 1)) * timeStep);
         }
     }
 }

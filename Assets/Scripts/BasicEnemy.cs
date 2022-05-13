@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour, IEnemy
 {
-    private List<Electron> electrons = new();
+    private float electronSpeedFactor = 150;
+    
+    private List<GameObject> electronGroups = new();
 
     public void Init(SphereGenerator sphereGenerator, Element source)
     {
         gameObject.AddComponent<SphereCollider>();
 
-        //TODO: reuse for player and enemy
+        //TODO: reuse some for player and enemy
         for (int i = 0; i < source.numProtons; i++)
         {
             var protonSphere = sphereGenerator.CreateProton(0.1f);
@@ -26,11 +28,14 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
         for (int i = 0; i < source.electrons.Length; i++)
         {
+            GameObject electronGroup = new GameObject("electron group" + i);
+            electronGroup.transform.SetParent(transform, false);
+
             for (int j = 0; j < source.electrons[i]; j++)
             {
                 var electronSphere = sphereGenerator.CreateElectron(0.05f);
                 electronSphere.name = "Electron";
-                electronSphere.transform.SetParent(transform);
+                electronSphere.transform.SetParent(electronGroup.transform, false);
                 float radius = (i + 1) * 0.2f;
 
                 float angle = (j + 1) * 2 * Mathf.PI / source.electrons[i];
@@ -38,13 +43,9 @@ public class BasicEnemy : MonoBehaviour, IEnemy
                 float x = Mathf.Sin(angle) * radius;
                 float z = Mathf.Cos(angle) * radius;
                 electronSphere.transform.Translate(new Vector3(x, 0, z));
-
-                float direction = i % 2 == 0 ? 1 : -1;
-
-                var electron = electronSphere.AddComponent<Electron>();
-                electron.Init(transform, 200f / (i + 1), direction); // TODO: replace transform with an empty anchor
-                electrons.Add(electron);
             }
+
+            electronGroups.Add(electronGroup);
         }
 
         transform.position = new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20));
@@ -52,9 +53,9 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
     public void ManualUpdate(float timeStep)
     {
-        foreach (var electron in electrons)
+        for (int i = 0; i < electronGroups.Count; i++)
         {
-            electron.ManualUpdate(timeStep);
+            electronGroups[i].transform.Rotate(Vector3.up, (i % 2 == 0 ? 1 : -1) * (electronSpeedFactor / (i + 1)) * timeStep);
         }
     }
 
