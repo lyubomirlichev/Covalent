@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = new Vector3(0, 0.5f, 0);
         
         moveAction = playerInput.currentActionMap.FindAction("Move");
-        fireAction = playerInput.currentActionMap.FindAction("Fire");
     }
     public void ManualUpdate(float timeStep)
     {
