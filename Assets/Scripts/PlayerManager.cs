@@ -1,32 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerManager : MonoBehaviour
 {
     private float electronSpeedFactor = 150;
-    
+
     private PlayerMovement movementControl;
     private List<GameObject> electronGroups = new();
-
+    
     public void Init(SphereGenerator generator, Element startingElement)
     {
         movementControl = gameObject.AddComponent<PlayerMovement>();
         movementControl.Init();
-
-        //TODO: make them spaced out a bit
+        
         for (int i = 0; i < startingElement.numProtons; i++)
         {
-            var protonSphere = generator.CreateProton(0.1f);
+            var protonSphere = generator.CreateProton(0.08f);
+            Vector3 dir = Random.insideUnitSphere.normalized;
+            protonSphere.transform.position = (dir / 15f) * (i * 0.15f);
             protonSphere.name = "Proton";
             protonSphere.transform.SetParent(transform, false);
         }
 
         for (int i = 0; i < startingElement.numNeutrons; i++)
         {
-            var neutronSphere = generator.CreateNeutron(0.1f);
+            var neutronSphere = generator.CreateNeutron(0.08f);
+            Vector3 dir = Random.insideUnitSphere.normalized;
+            neutronSphere.transform.position = (dir / 15f) * (i * 0.15f);
             neutronSphere.name = "Neutron";
             neutronSphere.transform.SetParent(transform, false);
         }
+
+        float innerOrbitOffset = (startingElement.numNeutrons + startingElement.numProtons) / 2f * 0.005f;
 
         for (int i = 0; i < startingElement.electrons.Length; i++)
         {
@@ -38,7 +45,7 @@ public class PlayerManager : MonoBehaviour
                 var electronSphere = generator.CreateElectron(0.05f);
                 electronSphere.name = "Electron";
                 electronSphere.transform.SetParent(electronGroup.transform, false);
-                float radius = (i + 1) * 0.2f;
+                float radius = innerOrbitOffset + (i + 1) * 0.2f; //0.2f is hard offset
 
                 float angle = (j + 1) * 2 * Mathf.PI / startingElement.electrons[i];
                 angle += (180f * i); // offset

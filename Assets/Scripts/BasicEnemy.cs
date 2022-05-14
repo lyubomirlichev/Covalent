@@ -5,7 +5,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 {
     private float electronSpeedFactor = 150;
     private float moveSpeed = 5;
-    
+
     private List<GameObject> electronGroups = new();
 
     public void Init(SphereGenerator sphereGenerator, Element source)
@@ -17,16 +17,22 @@ public class BasicEnemy : MonoBehaviour, IEnemy
         for (int i = 0; i < source.numProtons; i++)
         {
             var protonSphere = sphereGenerator.CreateProton(0.1f);
+            Vector3 dir = Random.insideUnitSphere.normalized;
+            protonSphere.transform.position = (dir / 15f) * (i * 0.15f);
             protonSphere.name = "Proton";
             protonSphere.transform.SetParent(transform, false);
         }
 
         for (int i = 0; i < source.numNeutrons; i++)
         {
-            var neutronSphere = sphereGenerator.CreateNeutron(0.15f);
+            var neutronSphere = sphereGenerator.CreateNeutron(0.1f);
+            Vector3 dir = Random.insideUnitSphere.normalized;
+            neutronSphere.transform.position = (dir / 15f) * (i * 0.15f);
             neutronSphere.name = "Neutron";
             neutronSphere.transform.SetParent(transform, false);
         }
+
+        float innerOrbitOffset = (source.numNeutrons + source.numProtons) / 2f * 0.01f;
 
         for (int i = 0; i < source.electrons.Length; i++)
         {
@@ -38,7 +44,8 @@ public class BasicEnemy : MonoBehaviour, IEnemy
                 var electronSphere = sphereGenerator.CreateElectron(0.05f);
                 electronSphere.name = "Electron";
                 electronSphere.transform.SetParent(electronGroup.transform, false);
-                float radius = (i + 1) * 0.2f;
+
+                float radius = innerOrbitOffset + (i + 1) * 0.2f;
 
                 float angle = (j + 1) * 2 * Mathf.PI / source.electrons[i];
                 angle += (180f * i); // offset

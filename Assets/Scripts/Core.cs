@@ -1,5 +1,4 @@
 using Cinemachine;
-using EasyButtons;
 using UnityEngine;
 
 public class Core : MonoBehaviour
@@ -26,7 +25,7 @@ public class Core : MonoBehaviour
         cam.Follow = player.transform;
         cam.LookAt = player.transform;
 
-        var playerElement = elementsLibrary.GetElementByName("Test");
+        var playerElement = elementsLibrary.GetElementByName("Helium");
         player.Init(generator, playerElement);
         
         enemiesManager.Init(player.transform,generator,elementsLibrary);
