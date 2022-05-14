@@ -1,4 +1,3 @@
-using System.ServiceModel.Syndication;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private PlayerInput playerInput;
     private InputAction moveAction;
+    private InputAction fireAction;
     
     private float moveSpeed = 6f;
 
@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = new Vector3(0, 0.5f, 0);
         
         moveAction = playerInput.currentActionMap.FindAction("Move");
+        fireAction = playerInput.currentActionMap.FindAction("Fire");
     }
     public void ManualUpdate(float timeStep)
     {

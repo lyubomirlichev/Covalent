@@ -234,17 +234,6 @@ public partial class @CovalentInputActions : IInputActionCollection2, IDisposabl
                 },
                 {
                     ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
                     ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": """",
@@ -272,6 +261,17 @@ public partial class @CovalentInputActions : IInputActionCollection2, IDisposabl
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""594b9ac2-7f10-4620-83dc-6e00f875610d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

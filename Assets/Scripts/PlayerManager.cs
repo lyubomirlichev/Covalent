@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -8,12 +10,17 @@ public class PlayerManager : MonoBehaviour
     private float electronSpeedFactor = 150;
 
     private PlayerMovement movementControl;
+    private PlayerAttacks playerAttacks;
     private List<GameObject> electronGroups = new();
+    private List<Electron> electrons = new();
     
     public void Init(SphereGenerator generator, Element startingElement)
     {
         movementControl = gameObject.AddComponent<PlayerMovement>();
+        playerAttacks = gameObject.AddComponent<PlayerAttacks>();
+        
         movementControl.Init();
+        playerAttacks.Init(OnFire);
         
         for (int i = 0; i < startingElement.numProtons; i++)
         {
@@ -52,12 +59,24 @@ public class PlayerManager : MonoBehaviour
                 float x = Mathf.Sin(angle) * radius;
                 float z = Mathf.Cos(angle) * radius;
                 electronSphere.transform.Translate(new Vector3(x, 0, z));
+                
+                var item = electronSphere.AddComponent<Electron>();
+                item.Init(null, 0f, 0f);
+                electrons.Add(item);
             }
-
+            
             electronGroups.Add(electronGroup);
         }
     }
 
+    private void OnFire(InputAction.CallbackContext context)
+    {
+        //Firing is WIP, need to decide on the mechanics
+        var ele = electrons[^1];
+        ele.transform.SetParent(null,true);
+        electrons.RemoveAt(electrons.IndexOf(ele));
+    }
+    
     public void ManualUpdate(float timeStep)
     {
         movementControl.ManualUpdate(timeStep);
