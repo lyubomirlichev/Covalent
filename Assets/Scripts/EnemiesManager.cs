@@ -23,7 +23,7 @@ public class EnemiesManager : MonoBehaviour
 
         playerTransform = player;
         
-        StartCoroutine(SpawnEnemies());
+        //StartCoroutine(SpawnEnemies());
     }
 
     private IEnumerator SpawnEnemies()

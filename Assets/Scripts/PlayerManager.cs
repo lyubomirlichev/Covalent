@@ -60,7 +60,7 @@ public class PlayerManager : MonoBehaviour
                 electronSphere.transform.Translate(new Vector3(x, 0, z));
                 
                 var item = electronSphere.AddComponent<Electron>();
-                item.Init(null, 0f, 0f);
+                item.Init();
                 electrons.Add(item);
             }
             
@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
     {
         //Firing is WIP, need to decide on the mechanics
         var ele = electrons[^1];
-        ele.transform.SetParent(null,true);
+        ele.OnFired?.Invoke();
         electrons.RemoveAt(electrons.IndexOf(ele));
     }
     
@@ -84,5 +84,10 @@ public class PlayerManager : MonoBehaviour
         {
             electronGroups[i].transform.Rotate(Vector3.up, (i % 2 == 0 ? 1 : -1) * (electronSpeedFactor / (i + 1)) * timeStep);
         }
+    }
+
+    private void Highlight(Electron target)
+    {
+        
     }
 }

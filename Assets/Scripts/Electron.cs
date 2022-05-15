@@ -1,17 +1,33 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
-//not needed for now
 public class Electron : MonoBehaviour
 {
-    private Transform nucleusTarget;
-    private float orbitSpeed;
-    private float orbitDirection;
-
-    private Vector3 velocity;
-    public void Init(Transform nucleus, float speed, float direction)
+    public Action OnFired;
+    private Vector3 direction;
+    
+    private float projectileSpeed = 0.02f;
+    
+    public void Init()
     {
-        nucleusTarget = nucleus;
-        orbitSpeed = speed;
-        orbitDirection = direction;
+        OnFired += () =>
+        {
+            direction = transform.position - transform.parent.position;
+            direction.Normalize();
+            transform.SetParent(null,true);
+            
+            StartCoroutine(FlyOut());
+        };
     }
+
+    private IEnumerator FlyOut()
+    {
+        while (true)
+        {
+            transform.position += direction * projectileSpeed;
+            yield return null;
+        }
+    }
+    
 }
