@@ -74,15 +74,16 @@ public class PlayerManager : MonoBehaviour
 
     private void OnFire(InputAction.CallbackContext context)
     {
+        if (electrons.Count == 0) return;
+        
         //Firing is WIP, need to decide on the mechanics
         var ele = electrons[^1];
         ele.OnFired?.Invoke();
         electrons.RemoveAt(electrons.IndexOf(ele));
-        if (electrons.Count > 0)
-        {
-            var nextEle = electrons[^1];
-            Highlight(nextEle);
-        }
+        
+        if (electrons.Count == 0) return;
+        var nextEle = electrons[^1];
+        Highlight(nextEle);
     }
     
     private void Highlight(Electron target)
