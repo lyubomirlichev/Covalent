@@ -6,15 +6,16 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerManager : MonoBehaviour
 {
-    private float electronSpeedFactor = 150;
-
+    private UICore UICore;
     private PlayerMovement movementControl;
     private PlayerAttacks playerAttacks;
     private List<GameObject> electronGroups = new();
     private List<Electron> electrons = new();
-    
-    public void Init(SphereGenerator generator, Element startingElement)
+    private float electronSpeedFactor = 150;
+
+    public void Init(UICore uiCore, SphereGenerator generator, Element startingElement)
     {
+        UICore = uiCore;
         movementControl = gameObject.AddComponent<PlayerMovement>();
         playerAttacks = gameObject.AddComponent<PlayerAttacks>();
         
@@ -63,6 +64,9 @@ public class PlayerManager : MonoBehaviour
                 item.Init();
                 electrons.Add(item);
             }
+
+            if(startingElement.electrons.Length > 0)
+                Highlight(electrons[^1]);
             
             electronGroups.Add(electronGroup);
         }
@@ -74,6 +78,16 @@ public class PlayerManager : MonoBehaviour
         var ele = electrons[^1];
         ele.OnFired?.Invoke();
         electrons.RemoveAt(electrons.IndexOf(ele));
+        if (electrons.Count > 0)
+        {
+            var nextEle = electrons[^1];
+            Highlight(nextEle);
+        }
+    }
+    
+    private void Highlight(Electron target)
+    {
+        UICore.SetHighlightTarget(target.transform);
     }
     
     public void ManualUpdate(float timeStep)
@@ -84,10 +98,5 @@ public class PlayerManager : MonoBehaviour
         {
             electronGroups[i].transform.Rotate(Vector3.up, (i % 2 == 0 ? 1 : -1) * (electronSpeedFactor / (i + 1)) * timeStep);
         }
-    }
-
-    private void Highlight(Electron target)
-    {
-        
     }
 }

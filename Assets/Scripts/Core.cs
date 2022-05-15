@@ -1,12 +1,15 @@
 using Cinemachine;
 using UnityEngine;
 
+//TODO: rename to GameCore
 public class Core : MonoBehaviour
 {
-    
     private PlayerManager player;
     private Elements elementsLibrary;
     private EnemiesManager enemiesManager;
+
+    [SerializeField]
+    private UICore UICore;
     
     private void Start()
     {
@@ -26,7 +29,7 @@ public class Core : MonoBehaviour
         cam.LookAt = player.transform;
 
         var playerElement = elementsLibrary.GetElementByName("Helium");
-        player.Init(generator, playerElement);
+        player.Init(UICore, generator, playerElement);
         
         enemiesManager.Init(player.transform,generator,elementsLibrary);
     }
@@ -36,5 +39,6 @@ public class Core : MonoBehaviour
         var timeStep = Time.deltaTime;
         player.ManualUpdate(timeStep);
         enemiesManager.ManualUpdate(timeStep);
+        UICore.ManualUpdate(timeStep);
     }
 }
