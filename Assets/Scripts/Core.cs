@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
+    
     private PlayerManager player;
     private Elements elementsLibrary;
     private EnemiesManager enemiesManager;
@@ -13,15 +14,14 @@ public class Core : MonoBehaviour
         elementsLibrary.Init();
         
         var playerPrefab = Instantiate(Resources.Load("Prefabs/Player") as GameObject);
-        var cameraPrefab = Instantiate(Resources.Load("Prefabs/Main Camera") as GameObject);
-        if (cameraPrefab == null || playerPrefab == null) return;
+        if (playerPrefab == null) return;
         
         player = playerPrefab.GetComponent<PlayerManager>();
         enemiesManager = GetComponent<EnemiesManager>();
-        var cam = cameraPrefab.GetComponent<CinemachineVirtualCamera>();
         var generator = GetComponent<SphereGenerator>();
         generator.Init();
         
+        var cam = Camera.main?.transform.GetComponent<CinemachineVirtualCamera>();
         cam.Follow = player.transform;
         cam.LookAt = player.transform;
 
