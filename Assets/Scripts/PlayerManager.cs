@@ -40,7 +40,7 @@ public class PlayerManager : MonoBehaviour
             neutronSphere.transform.SetParent(transform, false);
         }
 
-        float innerOrbitOffset = (startingElement.numNeutrons + startingElement.numProtons) / 2f * 0.005f;
+        float innerOrbitOffset = ((startingElement.numNeutrons + startingElement.numProtons) / 2f) * 0.005f;
 
         for (int i = 0; i < startingElement.electrons.Length; i++)
         {

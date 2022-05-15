@@ -28,7 +28,7 @@ public class Core : MonoBehaviour
         cam.Follow = player.transform;
         cam.LookAt = player.transform;
 
-        var playerElement = elementsLibrary.GetElementByName("Helium");
+        var playerElement = elementsLibrary.GetElementByName("Test");
         player.Init(UICore, generator, playerElement);
         
         enemiesManager.Init(player.transform,generator,elementsLibrary);
