@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction;
     private InputAction fireAction;
     
-    private float moveSpeed = 6f;
+    private float moveSpeed = 5f;
 
     public void Init()
     {
